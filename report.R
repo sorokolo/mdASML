@@ -119,7 +119,7 @@ Added to that we will use the following classifiers:
   *classif.lda
   *classif.log_reg
 
-````{r}
+```{r}
 # Determining the penality term for our classif.rpart model
 lrn_cart_cv <- lrn("classif.rpart", predict_type = "prob", xval = 10)
 # lrn_enco <- po("encode") %>>%
@@ -131,11 +131,11 @@ rpart::plotcp(res_cart_cv$learners[[4]]$model)
 
 # We will use the mean of the 5 tree learners as out estimate of cp
 mean(c(0.048,0.057,0.053,0.034))
-````
+```
 
 we will use 0.048 as cp
 
-````{r}
+```{r}
 # Define a collection of base learners
 lrn_baseline <- lrn("classif.featureless", predict_type = "prob")
 lrn_cart_cp  <- lrn("classif.rpart", predict_type = "prob", id = "cartcp")
@@ -144,10 +144,10 @@ lrn_xgboost  <- lrn("classif.xgboost", predict_type = "prob")
 lrn_log_reg  <- lrn("classif.log_reg", predict_type = "prob")
 lrn_lda      <- lrn("classif.lda", predict_type = "prob")
 lrn_kknn    <- lrn("classif.kknn", predict_type = "prob") 
-````
+```
 
 
-````{r}
+```{r}
 # Missingness imputation pipeline
 pl_missing <- po("fixfactors") %>>%
   po("removeconstants") %>>%
@@ -157,7 +157,7 @@ pl_missing <- po("fixfactors") %>>%
 # Factors coding pipeline
 pl_factor <- po("encode")
 
-````
+```
 
 Fitting all the models above and then comparing the performances
 
@@ -354,9 +354,8 @@ autoplot(pred, type = "roc")
 ```{r}
 autoplot(pred, type = "threshold", measure = msr("classif.fpr"))
 autoplot(pred, type = "threshold", measure = msr("classif.acc"))
-````
+```
 
 ```{r}
 autoplot(pred, type = "prc")
 ```
-
